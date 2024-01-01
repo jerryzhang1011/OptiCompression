@@ -1,5 +1,5 @@
 #include <vector>
 #include <string>
-#include <iostream>
+#include <algorithm>
 
 void msd_radix_sort(std::vector<std::string>& s);

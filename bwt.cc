@@ -15,25 +15,40 @@ string front_to_back(const string& s) {
     return new_s;
 }
 
-vector<string> cyclicShifts(string s) {
-    int s_len = s.length();
-    vector<string> result;
-    for (int i = 0; i < s_len; ++i) {
-        result.emplace_back(s);
-        s = front_to_back(s);
+vector<string> cyclicShifts(const string& s) {
+    vector<string> rotations(s.length());
+    for (size_t i = 0; i < s.length(); ++i) {
+        rotations[i] = s.substr(i) + s.substr(0, i);
     }
-    return result;
+    return rotations;
 }
 
-string bwt_encoding(string& text) {
-    if (text[text.length()-1] != end_sentinail) { text += end_sentinail; }
-    vector<string> shifts = cyclicShifts(text);
-    msd_radix_sort(shifts);
-    string code_c = "";
-    for (int i = 0; i < text.length(); ++i) {
-        code_c += shifts.at(i)[text.length()-1];
+// string bwt_encoding(string& text) {
+//     if (text[text.length()-1] != end_sentinail) { text += end_sentinail; }
+//     vector<string> shifts = cyclicShifts(text);
+//     std::sort(shifts.begin(), shifts.end());
+//     string code_c = "";
+//     for (int i = 0; i < text.length(); ++i) {
+//         code_c += shifts.at(i)[text.length()-1];
+//     }
+//     return code_c;
+// }
+
+// optimized
+std::string bwt_encoding(std::string& text) {
+    text += end_sentinail;
+    vector<string> rotations = cyclicShifts(text);
+
+    std::sort(rotations.begin(), rotations.end());
+    // msd_radix_sort(rotations);
+
+    // Extract the last column.
+    std::string bwt_encoded;
+    for (const auto& rotation : rotations) {
+        bwt_encoded += rotation.back();
     }
-    return code_c;
+
+    return bwt_encoded;
 }
 
 std::string bwt_decode(const std::string& code) {
