@@ -35,7 +35,7 @@ using namespace std;
 // }
 
 
-// chat
+// optimized
 void bucket_sort(vector<string>& s, int pos) {
     vector<string> buckets[128]; // Fixed size array of vectors
     int s_len = s.size();

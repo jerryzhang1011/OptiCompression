@@ -25,9 +25,9 @@ using namespace std;
 //     return;
 // }
 
-//chat
 
 
+// optimized
 // Utility function to get the character at the given index
 char charAt(const string& s, int index) {
     if (index < s.length()) return s[index];
